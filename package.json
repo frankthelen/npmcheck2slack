@@ -3,6 +3,10 @@
   "version": "1.0.0-alpha.1",
   "description": "Post results from npm-check into a Slack channel",
   "main": "src/index.js",
+  "bin": {
+    "npmcheck2slack": "src/index.js"
+  },
+  "preferGlobal": "true",
   "scripts": {
     "lint": "eslint . --ignore-path ./.eslintignore",
     "test": "NODE_ENV=test mocha --recursive test",
