@@ -1,10 +1,10 @@
 {
   "name": "npmcheck2slack",
   "version": "1.0.0-alpha.2",
-  "description": "Post results from npm-check into a Slack channel",
-  "main": "src/index.js",
+  "description": "Post results from npm-check to a Slack channel",
+  "main": "src/audit.js",
   "bin": {
-    "npmcheck2slack": "src/index.js"
+    "npmcheck2slack": "src/cli.js"
   },
   "preferGlobal": "true",
   "scripts": {
@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/frankthelen/npmcheck2slack#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "commander": "^2.14.1",
     "npm-check": "^5.5.2",
     "slack-node": "^0.1.8"

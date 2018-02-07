@@ -1,20 +1,15 @@
-#!/usr/bin/env node
-
 const npmCheck = require('npm-check');
-const program = require('commander');
+const Promise = require('bluebird');
 const Slack = require('slack-node');
 const util = require('util');
-const fs = require('fs');
-const packageJson = require('../package.json');
 
 const slack = new Slack();
 
-const readFile = util.promisify(fs.readFile);
 const post = util.promisify(slack.webhook);
 
 const audit = async ({
   name, webhookuri, username, emoji,
-}) => {
+}) => Promise.try(async () => {
   const result = await npmCheck();
   const packages = result.get('packages').filter(pack => pack.bump);
   const major = packages.filter(pack => pack.bump === 'major');
@@ -57,24 +52,6 @@ const audit = async ({
     text: `*${name}* dependency status`,
     attachments,
   });
-};
+});
 
-program
-  .version(packageJson.version, '-v, --version')
-  .usage('[options] <webhookuri>')
-  .option('-u, --username [username]', 'The username to be displayed in Slack. Defaults to your channel settings.')
-  .option('-e, --emoji [emoji]', 'The emoji to be displayed in Slack, e.g., ":ghost:". Defaults to your channel settings.')
-  .action(async (webhookuri, cmd) => {
-    try {
-      const packageJsonCwdFile = await readFile('package.json', 'UTF-8');
-      const packageJsonCwd = JSON.parse(packageJsonCwdFile);
-      const { name } = packageJsonCwd;
-      const { username, emoji } = cmd;
-      await audit({
-        name, webhookuri, username, emoji,
-      });
-    } catch (error) {
-      console.error(error); // eslint-disable-line no-console
-    }
-  })
-  .parse(process.argv);
+module.exports = audit;
