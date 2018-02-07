@@ -1,6 +1,6 @@
 {
   "name": "npmcheck2slack",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Post results from npm-check to a Slack channel",
   "main": "src/audit.js",
   "bin": {
