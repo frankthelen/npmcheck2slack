@@ -27,7 +27,8 @@ npmcheck2slack --help
 
   Options:
     -v, --version              output the version number
-    -u, --username [username]  username displayed in Slack. Defaults to channel settings.
-    -e, --emoji [emoji]        emoji displayed in Slack, e.g., ":ghost:". Defaults to channel settings.
+    -u, --username <username>  username to be displayed in Slack, defaults to channel settings
+    -e, --emoji <emoji>        emoji to be displayed in Slack, e.g., ":ghost:", defaults to channel settings
+    -b, --branch <branch>      branch name to be displayed in Slack
     -h, --help                 output usage information
 ```

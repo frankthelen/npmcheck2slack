@@ -8,7 +8,7 @@ const slack = new Slack();
 const post = util.promisify(slack.webhook);
 
 const audit = async ({
-  name, webhookuri, username, emoji,
+  name, webhookuri, username, emoji, branch,
 }) => Promise.try(async () => {
   const result = await npmCheck();
   const packages = result.get('packages');
@@ -46,10 +46,11 @@ const audit = async ({
     });
   }
   slack.setWebhook(webhookuri);
+  const branchText = branch ? ` [${branch}]` : '';
   await post({
     username,
     icon_emoji: emoji,
-    text: `*${name}* dependency status`,
+    text: `*${name}${branchText}* dependency status`,
     attachments,
   });
 });
