@@ -1,6 +1,7 @@
 # npmcheck2slack
 
 Runs `npm-check` in the current working directory and posts the results to Slack.
+Compares the installed package versions with their latest available versions.
 
 [![build status](https://img.shields.io/travis/frankthelen/npmcheck2slack.svg)](http://travis-ci.org/frankthelen/npmcheck2slack)
 [![Coverage Status](https://coveralls.io/repos/github/frankthelen/npmcheck2slack/badge.svg?branch=master)](https://coveralls.io/github/frankthelen/npmcheck2slack?branch=master)
@@ -26,7 +27,7 @@ npmcheck2slack --help
 
   Options:
     -v, --version              output the version number
-    -u, --username [username]  The username displayed in Slack. Defaults to your channel settings.
-    -e, --emoji [emoji]        The emoji displayed in Slack, e.g., ":ghost:". Defaults to your channel settings.
+    -u, --username [username]  username displayed in Slack. Defaults to channel settings.
+    -e, --emoji [emoji]        emoji displayed in Slack, e.g., ":ghost:". Defaults to channel settings.
     -h, --help                 output usage information
 ```

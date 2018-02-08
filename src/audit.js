@@ -11,12 +11,12 @@ const audit = async ({
   name, webhookuri, username, emoji,
 }) => Promise.try(async () => {
   const result = await npmCheck();
-  const packages = result.get('packages').filter(pack => pack.bump);
+  const packages = result.get('packages');
   const major = packages.filter(pack => pack.bump === 'major');
   const minor = packages.filter(pack => pack.bump === 'minor');
   const patch = packages.filter(pack => pack.bump === 'patch');
-  const line = pack => `*${pack.moduleName}*${pack.devDependency ? ' (dev)' : ''} \`${pack.installed}\` -> \`${pack.latest}\`\n`;
-  const text = packs => packs.reduce((acc, pack) => `${acc}${line(pack)}`, '');
+  const line = pack => `*${pack.moduleName}*${pack.devDependency ? ' (dev)' : ''} \`${pack.installed}\` -> \`${pack.latest}\``;
+  const text = packs => packs.reduce((acc, pack) => `${acc}${line(pack)}\n`, '');
   const attachments = [];
   if (major.length > 0) {
     attachments.push({
@@ -41,14 +41,14 @@ const audit = async ({
   }
   if (!attachments.length) {
     attachments.push({
-      text: '*All dependencies are up-to-date. Great work! :heart: *',
+      text: 'All dependencies are up-to-date. Great work! :heart:',
       color: 'good',
     });
   }
   slack.setWebhook(webhookuri);
   await post({
-    username, // 'npm-check',
-    icon_emoji: emoji, // ':ghost:',
+    username,
+    icon_emoji: emoji,
     text: `*${name}* dependency status`,
     attachments,
   });
