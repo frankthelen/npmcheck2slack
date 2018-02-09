@@ -40,22 +40,39 @@ describe('audit / unmocked', () => {
 
 describe('audit / mocked', () => {
   const webhookuri = 'http://localhost:9876';
+  const testcase = {
+    none: [],
+    major: [{
+      moduleName: 'test',
+      bump: 'major',
+      devDependency: true,
+      installed: '7.2.13',
+      latest: '8.0.0',
+    }],
+    minor: [{
+      moduleName: 'test',
+      bump: 'minor',
+      devDependency: false,
+      installed: '1.2.0',
+      latest: '1.3.5',
+    }],
+    patch: [{
+      moduleName: 'test',
+      bump: 'patch',
+      devDependency: false,
+      installed: '1.2.0',
+      latest: '1.2.1',
+    }],
+  };
 
-  before(() => {
+  beforeEach(function () { // eslint-disable-line func-names, prefer-arrow-callback
+    const { title } = this.test.ctx.currentTest;
+    const variant = title && title.match(/([^\s]+)$/)[1]; // e.g., `minor`
     sinon.stub(service, 'slack').resolves();
-    sinon.stub(service, 'npmcheck')
-      .resolves({
-        get: () => [{
-          moduleName: 'test',
-          bump: 'minor',
-          devDependency: false,
-          installed: '1.2.0',
-          latest: '1.3.5',
-        }],
-      });
+    sinon.stub(service, 'npmcheck').resolves({ get: () => testcase[variant] || [] });
   });
 
-  after(() => {
+  afterEach(() => {
     service.slack.restore();
     service.npmcheck.restore();
   });
@@ -66,12 +83,55 @@ describe('audit / mocked', () => {
     expect(service.npmcheck.calledOnce).to.be.true;
   });
 
-  it('should create message with minor updates', async () => {
+  it('should create Slack message / update major', async () => {
     await audit({ name: 'test', webhookuri });
     const [uri, message] = service.slack.getCall(0).args;
     expect(uri).to.be.equal(webhookuri);
     expect(message).to.have.property('attachments');
-    expect(message.attachments).to.have.lengthOf(1);
-    expect(message.attachments[0]).to.have.property('color', 'warning');
+    const { attachments } = message;
+    expect(attachments).to.have.lengthOf(1);
+    expect(attachments[0]).to.have.property('color', 'danger');
+    expect(attachments[0]).to.have.property('pretext', 'major updates available :scream:');
+  });
+
+  it('should create Slack message / update minor', async () => {
+    await audit({ name: 'test', webhookuri });
+    const [uri, message] = service.slack.getCall(0).args;
+    expect(uri).to.be.equal(webhookuri);
+    expect(message).to.have.property('attachments');
+    const { attachments } = message;
+    expect(attachments).to.have.lengthOf(1);
+    expect(attachments[0]).to.have.property('color', 'warning');
+    expect(attachments[0]).to.have.property('pretext', 'minor updates available :grimacing:');
+  });
+
+  it('should create Slack message / update patch', async () => {
+    await audit({ name: 'test', webhookuri });
+    const [uri, message] = service.slack.getCall(0).args;
+    expect(uri).to.be.equal(webhookuri);
+    expect(message).to.have.property('attachments');
+    const { attachments } = message;
+    expect(attachments).to.have.lengthOf(1);
+    expect(attachments[0]).to.have.property('color', 'good');
+    expect(attachments[0]).to.have.property('pretext', 'patch updates available');
+  });
+
+  it('should create Slack message / update none', async () => {
+    await audit({ name: 'test', webhookuri });
+    const [uri, message] = service.slack.getCall(0).args;
+    expect(uri).to.be.equal(webhookuri);
+    expect(message).to.have.property('attachments');
+    const { attachments } = message;
+    expect(attachments).to.have.lengthOf(1);
+    expect(attachments[0]).to.have.property('color', 'good');
+    expect(attachments[0]).to.not.have.property('pretext');
+    expect(attachments[0]).to.have.property('text', 'All dependencies are up-to-date. Great work! :heart:');
+  });
+
+  it('should create Slack message with branch / update none', async () => {
+    await audit({ name: 'test', webhookuri, branch: 'master' });
+    const [uri, message] = service.slack.getCall(0).args;
+    expect(uri).to.be.equal(webhookuri);
+    expect(message).to.have.property('text', '*test [master]* dependency status');
   });
 });
