@@ -30,5 +30,6 @@ npmcheck2slack --help
     -u, --username <username>  username to be displayed in Slack, defaults to channel settings
     -e, --emoji <emoji>        emoji to be displayed in Slack, e.g., ":ghost:", defaults to channel settings
     -b, --branch <branch>      branch name to be displayed in Slack
+    -r, --reluctant            do not send any message if all dependencies are up-to-date
     -h, --help                 output usage information
 ```
