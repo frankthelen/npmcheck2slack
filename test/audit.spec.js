@@ -134,4 +134,16 @@ describe('audit / mocked', () => {
     expect(uri).to.be.equal(webhookuri);
     expect(message).to.have.property('text', '*test [master]* dependency status');
   });
+
+  it('should not create Slack message if all up-to-date and reluctant / update none', async () => {
+    await audit({ name: 'test', webhookuri, reluctant: true });
+    expect(service.slack.calledOnce).to.be.false;
+    expect(service.npmcheck.calledOnce).to.be.true;
+  });
+
+  it('should create Slack message if not all up-to-date and reluctant / update major', async () => {
+    await audit({ name: 'test', webhookuri, reluctant: true });
+    expect(service.slack.calledOnce).to.be.true;
+    expect(service.npmcheck.calledOnce).to.be.true;
+  });
 });

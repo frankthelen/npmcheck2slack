@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const service = require('./service');
 
 const audit = async ({
-  name, webhookuri, username, emoji, branch,
+  name, webhookuri, username, emoji, branch, reluctant,
 }) => Promise.try(async () => {
   const result = await service.npmcheck();
   const packages = result.get('packages');
@@ -33,11 +33,14 @@ const audit = async ({
       color: 'good',
     });
   }
-  if (!attachments.length) {
+  if (!attachments.length && !reluctant) {
     attachments.push({
       text: 'All dependencies are up-to-date. Great work! :heart:',
       color: 'good',
     });
+  }
+  if (!attachments.length) {
+    return; // nothing to do
   }
   const branchText = branch ? ` [${branch}]` : '';
   await service.slack(webhookuri, {

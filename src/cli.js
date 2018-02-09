@@ -14,14 +14,17 @@ program
   .option('-u, --username <username>', 'username to be displayed in Slack, defaults to channel settings')
   .option('-e, --emoji <emoji>', 'emoji to be displayed in Slack, e.g., ":ghost:", defaults to channel settings')
   .option('-b, --branch <branch>', 'branch name to be displayed in Slack')
+  .option('-r, --reluctant', 'do not send any message if all dependencies are up-to-date')
   .action(async (webhookuri, cmd) => {
     try {
       const packageJsonCwdFile = await readFile('package.json', 'UTF-8');
       const packageJsonCwd = JSON.parse(packageJsonCwdFile);
       const { name } = packageJsonCwd;
-      const { username, emoji, branch } = cmd;
+      const {
+        username, emoji, branch, reluctant,
+      } = cmd;
       await audit({
-        name, webhookuri, username, emoji, branch,
+        name, webhookuri, username, emoji, branch, reluctant,
       });
     } catch (error) {
       console.error(error); // eslint-disable-line no-console

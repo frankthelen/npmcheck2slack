@@ -22,8 +22,11 @@
     "url": "git+https://github.com/frankthelen/npmcheck2slack.git"
   },
   "keywords": [
+    "npm",
     "npm-check",
-    "slack"
+    "slack",
+    "outdated",
+    "dependencies"
   ],
   "author": "Frank Thelen",
   "license": "MIT",
