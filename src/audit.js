@@ -1,16 +1,10 @@
-const npmCheck = require('npm-check');
 const Promise = require('bluebird');
-const Slack = require('slack-node');
-const util = require('util');
-
-const slack = new Slack();
-
-const post = util.promisify(slack.webhook);
+const service = require('./service');
 
 const audit = async ({
   name, webhookuri, username, emoji, branch,
 }) => Promise.try(async () => {
-  const result = await npmCheck();
+  const result = await service.npmcheck();
   const packages = result.get('packages');
   const major = packages.filter(pack => pack.bump === 'major');
   const minor = packages.filter(pack => pack.bump === 'minor');
@@ -45,9 +39,8 @@ const audit = async ({
       color: 'good',
     });
   }
-  slack.setWebhook(webhookuri);
   const branchText = branch ? ` [${branch}]` : '';
-  await post({
+  await service.slack(webhookuri, {
     username,
     icon_emoji: emoji,
     text: `*${name}${branchText}* dependency status`,
