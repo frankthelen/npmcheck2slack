@@ -7,7 +7,7 @@ Compares the installed package versions with their latest available versions.
 [![Coverage Status](https://coveralls.io/repos/github/frankthelen/npmcheck2slack/badge.svg?branch=master)](https://coveralls.io/github/frankthelen/npmcheck2slack?branch=master)
 [![Dependency Status](https://gemnasium.com/badges/github.com/frankthelen/npmcheck2slack.svg)](https://gemnasium.com/github.com/frankthelen/npmcheck2slack)
 [![Greenkeeper badge](https://badges.greenkeeper.io/frankthelen/npmcheck2slack.svg)](https://greenkeeper.io/)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f71c0020a54eefa732ef/maintainability)](https://codeclimate.com/github/frankthelen/npmcheck2slack/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3291daaa0f241b65857d/maintainability)](https://codeclimate.com/github/frankthelen/npmcheck2slack/maintainability)
 [![node](https://img.shields.io/node/v/npmcheck2slack.svg)]()
 [![code style](https://img.shields.io/badge/code_style-airbnb-brightgreen.svg)](https://github.com/airbnb/javascript)
 [![License Status](http://img.shields.io/npm/l/npmcheck2slack.svg)]()
