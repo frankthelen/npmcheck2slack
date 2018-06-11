@@ -5,7 +5,7 @@ Compares the installed package versions with their latest available versions.
 
 [![build status](https://img.shields.io/travis/frankthelen/npmcheck2slack.svg)](http://travis-ci.org/frankthelen/npmcheck2slack)
 [![Coverage Status](https://coveralls.io/repos/github/frankthelen/npmcheck2slack/badge.svg?branch=master)](https://coveralls.io/github/frankthelen/npmcheck2slack?branch=master)
-[![Dependency Status](https://gemnasium.com/badges/github.com/frankthelen/npmcheck2slack.svg)](https://gemnasium.com/github.com/frankthelen/npmcheck2slack)
+[![dependencies Status](https://david-dm.org/frankthelen/npmcheck2slack/status.svg)](https://david-dm.org/frankthelen/npmcheck2slack)
 [![Greenkeeper badge](https://badges.greenkeeper.io/frankthelen/npmcheck2slack.svg)](https://greenkeeper.io/)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3291daaa0f241b65857d/maintainability)](https://codeclimate.com/github/frankthelen/npmcheck2slack/maintainability)
 [![node](https://img.shields.io/node/v/npmcheck2slack.svg)]()
