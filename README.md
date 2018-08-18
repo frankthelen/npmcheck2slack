@@ -3,7 +3,7 @@
 Runs `npm-check` in the current working directory and posts the results to Slack.
 Compares the installed package versions with their latest available versions.
 
-[![build status](https://img.shields.io/travis/frankthelen/npmcheck2slack.svg)](http://travis-ci.org/frankthelen/npmcheck2slack)
+[![Build Status](https://travis-ci.org/frankthelen/npmcheck2slack.svg?branch=master)](https://travis-ci.org/frankthelen/npmcheck2slack)
 [![Coverage Status](https://coveralls.io/repos/github/frankthelen/npmcheck2slack/badge.svg?branch=master)](https://coveralls.io/github/frankthelen/npmcheck2slack?branch=master)
 [![dependencies Status](https://david-dm.org/frankthelen/npmcheck2slack/status.svg)](https://david-dm.org/frankthelen/npmcheck2slack)
 [![Greenkeeper badge](https://badges.greenkeeper.io/frankthelen/npmcheck2slack.svg)](https://greenkeeper.io/)
