@@ -18,6 +18,11 @@ Compares the installed package versions with their latest available versions.
 npm install -g npmcheck2slack
 ```
 
+Or run without installation
+```bash
+npx npmcheck2slack --help
+```
+
 ## Usage
 
 ```bash
