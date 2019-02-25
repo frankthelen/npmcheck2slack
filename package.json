@@ -49,7 +49,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-should-promised": "^2.0.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "nyc": "^12.0.2",
     "sinon": "^6.1.5",
     "sinon-chai": "^3.2.0"
