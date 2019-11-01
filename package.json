@@ -36,7 +36,7 @@
   "homepage": "https://github.com/frankthelen/npmcheck2slack#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
-    "commander": "^2.17.1",
+    "commander": "^4.0.0",
     "npm-check": "^5.8.0",
     "slack-node": "^0.1.8"
   },
